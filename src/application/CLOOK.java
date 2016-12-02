@@ -1,20 +1,18 @@
 package application;
 import static java.util.Arrays.sort;
 
-public abstract class CSCAN extends LOOK {
+public abstract class CLOOK extends Result {
 
-    public void cscan(Disk disk){
+    public void clook(Disk disk){
         int headLocation = 0;
         int count = 0;
-        int[] result = new int[disk.numberOfRequest+3];
+        int[] result = new int[disk.numberOfRequest+1];
 		int j = 0;
 		
 		for (int i = 0 ;i <disk.numberOfRequest ;++i ) {
-			result[i + 3] = disk.request[i];
+			result[i + 1] = disk.request[i];
 		}
-		result[2] = disk.startPos;
-		result[1] = disk.cylinder-1;
-		result[0] = 0;
+		result[0] = disk.startPos;
 		sort(result);
 		
 
@@ -38,7 +36,7 @@ public abstract class CSCAN extends LOOK {
 			path[j] = result[i];
 			j--;
 		}
-		count = disk.startPos + (disk.cylinder-1 - result[headLocation+1]);	
+		count = (disk.startPos - result[0]) + (result[result.length-1] - result[headLocation+1]);	
 	}
 	
 	if(disk.startPos >= (disk.cylinder/2)){
@@ -50,7 +48,7 @@ public abstract class CSCAN extends LOOK {
 			path[j] = result[i];
 			j++;
 		}
-		count = ((disk.cylinder-1) - disk.startPos) + result[headLocation-1];
+		count = (result[result.length-1] - disk.startPos) + (result[headLocation-1] - result[0]);
 	}
         disk.request = path;
         set(disk,disk.request,count);

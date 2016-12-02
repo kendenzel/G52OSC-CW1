@@ -71,6 +71,31 @@ public class Controller extends FCFS implements Initializable {
 
 	private void select_algorithms(Disk disk) {
 
+        if(algobox.getValue() == "FCFS"){
+			sel = 1;
+			fcfs(disk);
+		}
+		if(algobox.getValue() == "SSTF"){
+			sel = 2;
+			sstf(disk);
+		}
+		if(algobox.getValue() == "SCAN"){
+			sel = 3;
+			scan(disk);
+		}
+		if(algobox.getValue() == "CSCAN"){
+			sel = 4;
+			cscan(disk);
+		}
+		if(algobox.getValue() == "LOOK"){
+			sel = 5;
+			look(disk);
+		}
+		if(algobox.getValue() == "CLOOK"){
+			sel = 6;
+			clook(disk);
+
+		}
         for (int i = 0; i < 6; i++) {
             if (algobox.getValue() == algorithms[i]) {
                 sel = i + 1;
@@ -99,7 +124,7 @@ public class Controller extends FCFS implements Initializable {
                 break;
 
             case 6:
-                //clook(disk);
+                clook(disk);
                 break;
         }
     }
